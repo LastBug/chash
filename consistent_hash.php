@@ -14,7 +14,7 @@ class CHASH {
 	 * @param Array $config array of candiddate nodes, unrelated with elements' order
 	 * @param int $replics of a real node
 	 */
-	function __construct($config, $replics=7)
+	function __construct($config, $replics=179)
 	{
 		$this->ptr = -1;
 		$this->pos = array();
