@@ -91,12 +91,4 @@ class CHASH {
 		return abs(crc32($str));
 	}
 }
-
-$cs = CHASH(array('a','b','c','d'));
-var_dump($cs->get_node("asdf"));
-var_dump($cs->next_node());
-var_dump($cs->next_node());
-var_dump($cs->next_node());
-var_dump($cs->next_node());
-var_dump($cs->next_node());
 ?>
