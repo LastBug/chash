@@ -1,4 +1,7 @@
 <?php
+/******************************************************
+ * A implementation of consistent hashing
+ *****************************************************/
 class CHASH {
 	private		$nodes;		//aaray
 	private		$pos;		//array
@@ -6,19 +9,24 @@ class CHASH {
 
 	private		$ptr;
 
-	function __construct($config, $reps=7)
+	/**
+	 * Constructor
+	 * @param Array $config array of candiddate nodes, unrelated with elements' order
+	 * @param int $replics of a real node
+	 */
+	function __construct($config, $replics=7)
 	{
 		$this->ptr = -1;
 		$this->pos = array();
 
 		$this->nodes = $config;
 		$this->ok = true;
-		if ($reps < 1) $this->ok = false;
+		if ($replics < 1) $this->ok = false;
 		if (empty($config) || !is_array($config) || count($config) < 1)
 			$this->ok = false;
 
 		foreach ($config as $k => $v) {
-			for ($i=0; $i<$reps; $i++) {
+			for ($i=0; $i<$replics; $i++) {
 				$hash = $this->_hash($v.":".$i);
 				$this->pos[$hash] = $k;
 			}
@@ -33,6 +41,11 @@ class CHASH {
 		unset($this->ok);
 	}
 
+	/**
+	 * get the first node by key
+	 * @param string $key
+	 * @return mix real node
+	 */
 	function get_node($key)
 	{
 		if (!$this->ok) return false;
@@ -43,6 +56,10 @@ class CHASH {
 		return $this->nodes[$this->pos[$pos]];
 	}
 
+	/**
+	 * get the substitute node
+	 * @return mix real node 
+	 */
 	function next_node()
 	{
 		if (!$this->ok) return false;
@@ -74,4 +91,12 @@ class CHASH {
 		return abs(crc32($str));
 	}
 }
+
+$cs = CHASH(array('a','b','c','d'));
+var_dump($cs->get_node("asdf"));
+var_dump($cs->next_node());
+var_dump($cs->next_node());
+var_dump($cs->next_node());
+var_dump($cs->next_node());
+var_dump($cs->next_node());
 ?>
