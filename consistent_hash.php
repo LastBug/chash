@@ -65,9 +65,12 @@ class CHASH {
 		if (!$this->ok) return false;
 		if ($this->ptr == -1) return false;
 
-		$hash = $this->ptr + 1;
-		$this->ptr = $pos = $this->_find_pos($hash);
+		$pos = $this->ptr;
+		do {
+			$pos = $this->_find_pos($pos+1);
+		} while ($this->pos[$pos] == $this->pos[$this->ptr]);
 
+		$this->ptr = $pos;
 		return $this->nodes[$this->pos[$pos]];
 
 	}
