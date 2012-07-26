@@ -94,4 +94,17 @@ class CHASH {
 		return abs(crc32($str));
 	}
 }
+
+/*
+$cs = new CHASH(array(0,1,2,3,4,5,6));
+
+for ($i=0; $i<1000; $i++) {
+	$key = md5('abcd'.$i);
+	echo $cs->get_node($key)."\n";
+	echo $cs->next_node()."\n";
+	echo $cs->next_node()."\n";
+	echo $cs->next_node()."\n";
+	echo $cs->next_node()."\n";
+}
+*/
 ?>
