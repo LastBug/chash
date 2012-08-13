@@ -1,4 +1,5 @@
 import zlib
+import ctypes
 
 class CHASH(object) :
 	nodes	= []
@@ -19,8 +20,10 @@ class CHASH(object) :
 			for j in range(replics) :
 				hash = self._hash(config[i]+":"+str(j))
 				self.pos[hash] = i;
+		p = []
 		for key in sorted(self.pos.keys()) :
-			self.ppos.append(key)
+			p.append(key)
+		self.ppos = p
 	
 	def get_node(self, key) :
 		if not self.ok :
@@ -55,7 +58,11 @@ class CHASH(object) :
 		return self.ppos[0]
 
 	def _hash(self, key) :
-		return abs(zlib.crc32(key))
+		return ctypes.c_uint(zlib.crc32(key)).value
+
+	def __del__(self) :
+		pass
+
 
 '''
 import sys

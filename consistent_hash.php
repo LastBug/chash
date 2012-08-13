@@ -91,7 +91,7 @@ class CHASH {
 
 	function _hash($str)
 	{
-		return abs(crc32($str));
+		return sprintf('%u', crc32($str));
 	}
 }
 
